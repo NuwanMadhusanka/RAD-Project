@@ -1,0 +1,22 @@
+@charset "ISO-8859-1";
+body {
+  	font-family: 'Bitter', serif;
+    font-size: 12px;
+    font-style: bold;
+}
+
+#top{
+	background-image: url(../images/1.jpg);
+	position: relative;
+}
+
+#top h1{
+	color: white;
+	text-align: center;
+}
+
+#logout{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
