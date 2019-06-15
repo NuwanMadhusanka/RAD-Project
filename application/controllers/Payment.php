@@ -28,11 +28,9 @@
             
             if ($studentID == "") $selectedStudentID = $this->input->post("studentID");
             else $selectedStudentID = $studentID;
-            
-            $str_months = $this->get_str_months();
 
             $current_month = (int)date('m');
-            $data['currMonth'] = $str_months[$current_month - 1];
+            $data['currMonth'] = $this->get_str_month($current_month);
 
             $data['selectedStudent'] = "";
             $data['students'] = $this->get_table_data('student', 'id, name, month, fee');
@@ -45,9 +43,8 @@
                         $student['payable'] = ($current_month - $student['month']) * (int)$student['fee'];
                     }
 
-                    $student['nextMonth'] = $str_months[($student['month']) % 12];
-                    $student['month'] = $str_months[$student['month'] - 1];
-                    
+                    $student['numberOfMonthsToPay'] = 12 - $student['month'];
+                    $student['month'] = $this->get_str_month($student['month']);
                     $data['selectedStudent'] = $student;
                     break;
                 }
@@ -58,36 +55,39 @@
 
         public function confirm_pay(){
 
-            $currMonth = $this->input->post("currMonth");
-            $lastPaidMonth = $this->input->post("lastPaidMonth");
+            $numberOfMonthsPaid = $this->input->post("numberOfMonthsPaid");
+            $lastPaidMonth = $this->get_int_month($this->input->post("lastPaidMonth"));
             $studentID = $this->input->post("studentID");
-            $fee = $this->input->post("fee");
-            $nextMonth = $this->input->post("nextMonth");
+            $amount = $this->input->post("amount");
+            $paidMonths = "";
 
-            if ($lastPaidMonth == "December" and  $currMonth == "December"){
-                pass;
-            }
-            else{
-                $this->load->model('payment_model');
-                $this->payment_model->pay_next_month($studentID);
-                
-                $feesData = array(
-                    "amount" => $fee,
-                    "month" => $nextMonth,
-                    "date" => date("Y-m-d"),
-                    "student_id " => $studentID
-                );
-                $this->insert_data("fees", $feesData);
-                $this->search_student($studentID);
-
-                echo "
-                        <script type=\"text/javascript\">
-                        alert(\"Hello\nHow are you?\");
-                        </script>
-                    ";
+            for ($i=$lastPaidMonth + 1; $i <= $lastPaidMonth + $numberOfMonthsPaid; $i++){
+                if ($i == $lastPaidMonth + $numberOfMonthsPaid) $paidMonths = $paidMonths . $this->get_str_month($i);
+                else $paidMonths = $paidMonths . $this->get_str_month($i) . ", ";
             }
 
+            $transactionData = array(
+                "amount" => $amount,
+                "month" => $paidMonths,
+                "student_id " => $studentID
+            );
             
+            $this->newTransaction($transactionData);
+
+            $newLastPaidMonth = $lastPaidMonth + $numberOfMonthsPaid;
+            $this->update_student($studentID, $newLastPaidMonth);
+            
+            redirect(base_url() . "index.php/payment");
+            
+        }
+
+        public function newTransaction($data){
+            $this->insert_data("transaction", $data);
+        }
+
+        public function update_student($studentID, $newValue){
+            $this->load->model('payment_model');
+            $this->payment_model->update_student($studentID, $newValue);
         }
 
         public function insert_data($table_name, $data){
@@ -95,26 +95,26 @@
             $this->payment_model->insert_data($table_name, $data);
         }
 
-        public function get_str_months(){
+        public function get_str_month($monthNumber){
             $str_months = array(
-                "0"=>"January",
-                "1"=>"February",
-                "2"=>"March",
-                "3"=>"April",
-                "4"=>"May",
-                "5"=>"June",
-                "6"=>"July",
-                "7"=>"August",
-                "8"=>"September",
-                "9"=>"Octomber",
-                "10"=>"November",
-                "11"=>"December"
+                "1"=>"January",
+                "2"=>"February",
+                "3"=>"March",
+                "4"=>"April",
+                "5"=>"May",
+                "6"=>"June",
+                "7"=>"July",
+                "8"=>"August",
+                "9"=>"September",
+                "10"=>"Octomber",
+                "11"=>"November",
+                "12"=>"December"
             );
 
-            return $str_months;
+            return $str_months[$monthNumber];
         }
         
-        public function get_int_months(){
+        public function get_int_month($monthName){
             $int_months = array(
                 "January" => "1",
                 "February" => "2",
@@ -130,7 +130,7 @@
                 "December" => "12"
             );
 
-            return $int_months;
+            return $int_months[$monthName];
         }
     }
 ?>

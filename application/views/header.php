@@ -7,6 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title><?php echo $title?></title>
 
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/mycss.css">
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/bootstrap.min.css">
 
@@ -17,9 +18,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="bg-warning">
-        <div class="container h-100 bg-secondary">
-            <div class="row h-100">
-                <div class="col-6 mx-auto">
-                    <div class="jumbotron"">
+  <body class="bg-secondary">
+      <div class="centerDiv">
     

@@ -11,21 +11,8 @@
             $this->db->insert($table_name, $data);
         }
 
-        public function pay_next_month($studentID){
-            $this->db->select('month');
-            $result = $this->db->get_where('student', array('id' => $studentID));
-            $resultArray = $result->result_array();
-            $lastMonth = "";
-            foreach ($resultArray as $element){
-                foreach ($element as $element2){
-                    $lastMonth = $element2;
-                }
-            }
-
-            $newValue = 0;
-            if ($lastMonth + 1 == 13) $newValue = 1;
-            else $newValue = $lastMonth + 1;
-
+        public function update_student($studentID, $newValue){
+        
             $this->db->set('month', $newValue);
             $this->db->where('id', $studentID);
             $this->db->update('student');
