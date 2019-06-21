@@ -4,7 +4,7 @@
 	<div class="container-fluid">
     <div class="jumbotron" id="top">
       <button type="button" class="btn btn-danger" id="logout">LOGOUT</button>
-      <h1>Van Service</h1>
+      <h1>School Service</h1>
     </div>
   </div>
 	
