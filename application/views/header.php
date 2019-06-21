@@ -18,6 +18,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="bg-secondary">
-      <div class="centerDiv">
+  <body class="bg-white">
+      <div class="<?php if ($title == 'Payment') echo 'centerDiv'?>">
     

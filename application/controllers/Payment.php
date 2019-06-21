@@ -35,6 +35,7 @@
             $data['selectedStudent'] = "";
             $data['students'] = $this->get_table_data('student', 'id, name, month, fee');
 
+            // get details for selected student
             foreach($data['students'] as $student){
                 if ($student['id'] == $selectedStudentID){
                     
@@ -61,27 +62,42 @@
             $amount = $this->input->post("amount");
             $paidMonths = "";
 
+            // get string of paid months, ex: "January, February" 
             for ($i=$lastPaidMonth + 1; $i <= $lastPaidMonth + $numberOfMonthsPaid; $i++){
                 if ($i == $lastPaidMonth + $numberOfMonthsPaid) $paidMonths = $paidMonths . $this->get_str_month($i);
                 else $paidMonths = $paidMonths . $this->get_str_month($i) . ", ";
             }
 
+            // values for new record to transaction
             $transactionData = array(
                 "amount" => $amount,
                 "month" => $paidMonths,
                 "student_id " => $studentID
             );
             
-            $this->newTransaction($transactionData);
+            $this->new_transaction($transactionData);
 
             $newLastPaidMonth = $lastPaidMonth + $numberOfMonthsPaid;
             $this->update_student($studentID, $newLastPaidMonth);
             
-            redirect(base_url() . "index.php/payment");
-            
+            $message = "Payment Successfull!";
+            $redirectPath = base_url() . "index.php/payment";
+            $this->showMessage($message, $redirectPath);
+
         }
 
-        public function newTransaction($data){
+        public function showMessage($message, $redirectPath){
+            echo "<script 
+                type='text/javascript'>
+                if (!alert('$message'))
+                {
+                    document.location = '" . $redirectPath . "';
+                }
+                </script>";
+                exit();
+        }
+
+        public function new_transaction($data){
             $this->insert_data("transaction", $data);
         }
 

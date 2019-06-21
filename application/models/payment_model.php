@@ -17,5 +17,11 @@
             $this->db->where('id', $studentID);
             $this->db->update('student');
         }
+
+        public function get_student_name($studentID){
+            $this->db->select('name');
+            $query_result = $this->db->get_where('student', array('id' => $studentID));
+            return $query_result->result_array()[0]['name'];
+        }
     }
 ?>

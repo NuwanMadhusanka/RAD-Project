@@ -1,6 +1,8 @@
-<div class="card">
-    <div class="card-header">MONTHLY PAYMENT</div>
-    <div class="card-body justify-content-left">
+<div class="card border-dark">
+    <div class="card-header bg-dark">
+        <div class="d-flex justify-content-center text-light">MONTHLY PAYMENT</div>
+    </div>
+    <div class="card-body justify-content-left bg-light">
         <form method="post" name="searchForm" action="<?php echo base_url()?>index.php/Payment/search_student">
             <div class="form-row">
                     <div class="form-group col-sm-10 col-lg-10">
@@ -20,7 +22,7 @@
             </div>
             
         </form>
-        <hr>
+        <hr class="bg-dark">
         <form  method="post" action="<?php echo base_url()?>index.php/Payment/confirm_pay">
             <fieldset <?php if ($selectedStudent == "") echo 'disabled="disabled"';?>>
                 <div class="form-row">
@@ -56,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <hr>
+                <hr class="bg-dark">
                 <div class="form-row">
                     <div class="form-group col-sm-8 col-lg-8">
                         <div class="input-group">
@@ -106,11 +108,11 @@
                 <div class="container d-flex justify-content-center">
                     <?php
                         if ($selectedStudent != "" && $selectedStudent['month'] == "December") echo '
-                                <h3><span class="badge badge-success">All Payments Done!</span></h3>
+                                <h3><span class="badge badge-success">All payments done for this year!</span></h3>
                             ';
                         
                         else echo '
-                                <button type="submit" class="btn btn-primary col-sm-6 col-lg-6" name="pay">SUBMIT</button>
+                                <button type="submit" class="btn btn-dark col-sm-6 col-lg-6" name="pay">SUBMIT</button>
                             ';
                     ?>
                 </div>
@@ -118,4 +120,3 @@
         </form>
     </div>
 </div>
-
