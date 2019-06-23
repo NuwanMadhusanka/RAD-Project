@@ -53,6 +53,11 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="formGroupExampleInput2">Fees</label>
+                  <input type="Number" class="form-control" id="formGroupExampleInput2" placeholder="Monthly Fee" name="fee">
+                </div>
+
+                <div class="form-group">
                   <label for="formGroupExampleInput2">Email</label>
                   <input type="Emaill" class="form-control" id="formGroupExampleInput2" placeholder="Email" name="email">
                 </div>

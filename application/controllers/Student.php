@@ -31,7 +31,7 @@ class Student extends CI_Controller {
 	function registerStudent(){
 
 		//load the register view
-		$dataTitle['title']="StudentRegister";
+		$dataTitle['title']="StudentRegister"; 
 		$this->load->view('parts/header.php',$dataTitle);
 		$this->load->view('student_register');
 	}
@@ -45,12 +45,11 @@ class Student extends CI_Controller {
 		$tel=$this->input->post('tel');
 		$email=$this->input->post('email');
 		$password=$this->input->post('password');
+		$fee=$this->input->post('fee');
 
-
-		$data=array("name"=>$name,"school"=>$school,"address"=>$address,"grade"=>$grade,"tel"=>$tel,"email"=>$email,"password"=>$password,"date"=>date("Y-m-d"));
+		$data=array("name"=>$name,"school"=>$school,"address"=>$address,"grade"=>$grade,"tel"=>$tel,"email"=>$email,"password"=>$password,"date"=>date("Y-m-d"),"month"=>date("m"),"fee"=>$fee);
 		$this->load->model('StudentModel','',TRUE);
 		$this->StudentModel->saveStudent($data);
-
 
 		$this->viewStudent();
 	}
@@ -79,9 +78,9 @@ class Student extends CI_Controller {
 		$tel=$this->input->post('tel');
 		$email=$this->input->post('email');
 		$password=$this->input->post('password');
+		$fee=$this->input->post('fee');
 
-
-		$data=array("id"=>$id,"name"=>$name,"school"=>$school,"address"=>$address,"grade"=>$grade,"tel"=>$tel,"email"=>$email,"password"=>$password,"date"=>date("Y-m-d"));
+		$data=array("id"=>$id,"name"=>$name,"school"=>$school,"address"=>$address,"grade"=>$grade,"tel"=>$tel,"email"=>$email,"password"=>$password,"fee"=>$fee);
 		$this->load->model('StudentModel','',TRUE);
 		$this->StudentModel->updateStudent($data);
 

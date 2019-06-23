@@ -60,6 +60,11 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="formGroupExampleInput2">Fees</label>
+                  <input type="Number" class="form-control" id="formGroupExampleInput2" value="<?= $val->fee?>" name="fee">
+                </div>
+
+                <div class="form-group">
                   <label for="formGroupExampleInput2">Email</label>
                   <input type="Emaill" class="form-control" id="formGroupExampleInput2" value="<?= $val->email?>" name="email">
                 </div>
