@@ -8,13 +8,13 @@
 
             $this->load_main_view($data);
         }
-
+        
         public function get_table_data($table_name, $column_names){
             $this->load->model('payment_model');
             $table_data = $this->payment_model->get_table_data($table_name, $column_names);
             return $table_data;
         }
-
+        
         public function load_main_view($data){
 
             $header_data['title'] = "Payment";
