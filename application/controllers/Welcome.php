@@ -5,6 +5,8 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$dataTitle['title']="SchoolDrive";
+		$this->load->view('parts/header.php',$dataTitle);
+		$this->load->view('login.php');
 	}
 }

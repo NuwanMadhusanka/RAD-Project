@@ -1,9 +1,16 @@
 
+<?php
+$role = $this->session->userdata('role');
+ if ($role != "1"){
+    redirect('user', 'refresh');
+ }
+?>
+
 <body>
   
   <div class="container-fluid">
     <div class="jumbotron" id="top">
-      <button type="button" class="btn btn-danger" id="logout">LOGOUT</button>
+      <a href="<?php echo site_url('User/user_logout') ?>" class="btn btn-danger" id="logout">LOGOUT</a>
       <h1>School Service</h1>
     </div>
   </div>
@@ -16,9 +23,9 @@
         <div class="list-group">
           <a href="<?php echo site_url('Student/registerStudent')?>" class="list-group-item active">Add Student</a>
           <a href="<?php echo site_url('Student')?>" class="list-group-item">Student Details</a>
-          <a href="#" class="list-group-item">Payment</a>
-          <a href="#" class="list-group-item">Message</a>
-          <a href="#" class="list-group-item">Report</a>
+          <a href="<?php echo site_url('Payment')?>" class="list-group-item">Payment</a>
+          <a href="<?php echo site_url('Transaction')?>" class="list-group-item">Transaction</a>
+          <a href="<?php echo site_url('UserDriver')?>" class="list-group-item">Expences</a>
         </div>
       </div>
      
@@ -88,3 +95,27 @@
   </div>
 </body>
 </html>
+
+<?php
+
+// public function showMessage($message, $redirectPath){
+
+//             echo "<script 
+
+//                 type='text/javascript'>
+
+//                 if (!alert('$message'))
+
+//                 {
+
+//                     document.location = '" . $redirectPath . "';
+
+//                 }
+
+//                 </script>";
+
+//                 exit();
+
+//         }
+
+?>
